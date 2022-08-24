@@ -13,12 +13,22 @@ provider:
   runtime: nodejs12.x
   httpApi:
     cors: true
+  region: us-east-1
+  stage: dev
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action: 
+        - s3:PutObject
+      Resource: "arn:aws:s3:::cbrennanbuckettest/*"
+
 
 functions:
   generate-pdf:
-    handler: handler.generate_pdf
+    handler: handler.generate
     events:
       - httpApi:
           path: /api/pdf
           method: get
+
+
 
